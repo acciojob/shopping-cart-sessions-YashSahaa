@@ -66,14 +66,14 @@ function clearCart() {
 productList.addEventListener("click",(event)=>{
 	// console.log(event);
 	if(event.target.classList.contains("add-to-cart-btn")){
-		let productId = event.target.getAttribute("data-id");
+		let productId = parseInt(event.target.getAttribute("data-id"));
 		addToCart(productId);
 	}
 });
 cartList.addEventListener("click",(event)=>{
 	// console.log(event);
 	if(event.target.classList.contains("remove-from-cart-btn")){
-		let productId = event.target.getAttribute("data-id");
+		let productId = parseInt(event.target.getAttribute("data-id"));
 		removeFromCart(productId);
 	}
 });
