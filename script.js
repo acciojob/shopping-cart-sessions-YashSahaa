@@ -26,10 +26,10 @@ function renderProducts() {
 
 // Render cart list
 function renderCart() {
-	cartList.innerHtml = "";
-	cartItems.forEach((product) => {
+	cartList.innerHTML = "";
+	cartItems.forEach((item) => {
     const li = document.createElement("li");
-    li.innerHTML = `${product.name} - $${product.price} <button class="remove-from-cart-btn" data-id="${product.id}">Remove From Cart</button>`;
+    li.innerHTML = `${item.name} - $${item.price} <button class="remove-from-cart-btn" data-id="${item.id}">Remove From Cart</button>`;
     cartList.appendChild(li);
   });
 }
@@ -37,9 +37,8 @@ function renderCart() {
 
 // Add item to cart
 function addToCart(productId) {
-	let addPro = products.find(product =>{
-		return productId===product.id;
-	})
+	let addPro = products.find(product => productId===product.id )
+	//console.log(addPro);
 	if (addPro) {
 		cartItems.push(addPro);
 		sessionStorage.setItem("cart",JSON.stringify(cartItems));
@@ -49,9 +48,8 @@ function addToCart(productId) {
 
 // Remove item from cart
 function removeFromCart(productId) {
-	cartItems = cartItems.filter(product =>{
-		return productId!==product.id;
-	})
+	cartItems = cartItems.filter((product) => product.id!==productId)
+	// console.log(cartItems);
 	sessionStorage.setItem("cart",JSON.stringify(cartItems));
 	renderCart();
 }
@@ -77,7 +75,7 @@ cartList.addEventListener("click",(event)=>{
 		removeFromCart(productId);
 	}
 });
-clrCart.addEventListener("click",clearCart());
+clrCart.addEventListener("click",clearCart);
 // Initial render
 renderProducts();
 renderCart();
