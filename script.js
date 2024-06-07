@@ -14,7 +14,7 @@ const productList = document.getElementById("product-list");
 const cartList = document.getElementById("cart-list");
 const clrCart = document.getElementById("clear-cart-btn");
 
-let cartItems = [];
+let cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
 // Render product list
 function renderProducts() {
   products.forEach((product) => {
@@ -37,14 +37,31 @@ function renderCart() {
 
 // Add item to cart
 function addToCart(productId) {
-	
+	let addPro = products.find(product =>{
+		return productId===product.id;
+	})
+	if (addPro) {
+		cartItems.push(addPro);
+		sessionStorage.setItem("cart",JSON.stringify(cartItems));
+		renderCart();
+	}
 }
 
 // Remove item from cart
-function removeFromCart(productId) {}
+function removeFromCart(productId) {
+	cartItems = cartItems.filter(product =>{
+		return productId!==product.id;
+	})
+	sessionStorage.setItem("cart",JSON.stringify(cartItems));
+	renderCart();
+}
 
 // Clear cart
-function clearCart() {}
+function clearCart() {
+	cartItems = [];
+	sessionStorage.removeItem("cart");
+	renderCart();
+}
 
 productList.addEventListener("click",(event)=>{
 	// console.log(event);
